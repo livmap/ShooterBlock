@@ -1,6 +1,8 @@
 import pygame
 import sys
 
+from shooter import Shooter
+
 # Initialize pygame
 pygame.init()
 
@@ -14,6 +16,8 @@ background = (30, 30, 40)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("ShooterBlock")
+
+sh = Shooter(screen, 50, WIDTH, HEIGHT)
 
 # Main game loop
 running = True
@@ -30,6 +34,7 @@ while running:
 
     # Fill the screen with a color
     screen.fill(background)
+    sh.draw()
     # Update the display
     pygame.display.flip()
 
