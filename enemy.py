@@ -14,6 +14,9 @@ class Enemy:
         self.screenWidth = sW
         self.screenHeight = sH
         self.screen = s
+        self.maxLife = 50
+        self.life = self.maxLife
+        self.lifeColor = (255, 0, 0)
 
     def move(self):
         self.y += self.speed
@@ -27,4 +30,5 @@ class Enemy:
             self.move()
         else:
             self.relocate()
+        pygame.draw.rect(self.screen, self.lifeColor, [self.x, self.y - 10, self.w * (self.life / self.maxLife), 5])
         pygame.draw.rect(self.screen, self.color, [self.x, self.y, self.w, self.h])

@@ -6,6 +6,7 @@ import sys
 from bullet import Bullet
 from shooter import Shooter
 from enemy import Enemy
+from utilities import collision
 
 # Initialize pygame
 pygame.init()
@@ -35,10 +36,15 @@ for i in range(enemyCount):
     enemies.append(Enemy(screen, starterY, enemyW, enemyH, enemyColor, enemySpeed, WIDTH, HEIGHT))
 
 bullets = []
+bulletRadius = 5
+coolDown = 250
 
 # Main game loop
 running = True
 clock = pygame.time.Clock()
+
+currentTime = 0
+prevTime = 0
 
 while running:
     # Handle events
@@ -56,12 +62,28 @@ while running:
     if keys[pygame.K_RIGHT]:
         sh.turn(-5)
     if keys[pygame.K_SPACE]:
-        pass
+        currentTime = pygame.time.get_ticks()
+        if currentTime > prevTime + coolDown:
+            bullets.append(Bullet(screen, sh.aimX, sh.aimY, bulletRadius, 5, sh.angle, WIDTH, HEIGHT))
+            prevTime = pygame.time.get_ticks()
+
 
     # Fill the screen with a color
     screen.fill(background)
     sh.draw()
+    for b in bullets:
+        if b.x < 0 or b.x > WIDTH:
+            if b.y < 0 or b.y > HEIGHT:
+                bullets.remove(b)
+        b.draw()
     for en in enemies:
+        for b in bullets:
+            if collision(b.x, b.y, b.radius, en.x, en.y, en.w, en.h):
+                bullets.remove(b)
+                en.life -= b.damage
+
+        if  en.life <= 0:
+            enemies.remove(en)
         en.update()
     # Update the display
     pygame.display.flip()
