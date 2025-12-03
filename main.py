@@ -3,6 +3,7 @@ import random
 import pygame
 import sys
 
+from bullet import Bullet
 from shooter import Shooter
 from enemy import Enemy
 
@@ -33,6 +34,8 @@ for i in range(enemyCount):
     enemySpeed = random.randint(1, 3) / 5
     enemies.append(Enemy(screen, starterY, enemyW, enemyH, enemyColor, enemySpeed, WIDTH, HEIGHT))
 
+bullets = []
+
 # Main game loop
 running = True
 clock = pygame.time.Clock()
@@ -52,6 +55,8 @@ while running:
         sh.turn(5)
     if keys[pygame.K_RIGHT]:
         sh.turn(-5)
+    if keys[pygame.K_SPACE]:
+        pass
 
     # Fill the screen with a color
     screen.fill(background)

@@ -2,7 +2,6 @@ import random
 
 import pygame.draw
 
-
 class Enemy:
     def __init__(self,s, y, w, h, clr, sp, sW, sH):
         self.w = w
