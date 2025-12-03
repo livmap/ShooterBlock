@@ -46,6 +46,13 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
 
+    keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_LEFT]:
+        sh.turn(5)
+    if keys[pygame.K_RIGHT]:
+        sh.turn(-5)
+
     # Fill the screen with a color
     screen.fill(background)
     sh.draw()
