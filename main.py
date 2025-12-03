@@ -1,7 +1,10 @@
+import random
+
 import pygame
 import sys
 
 from shooter import Shooter
+from enemy import Enemy
 
 # Initialize pygame
 pygame.init()
@@ -19,6 +22,17 @@ pygame.display.set_caption("ShooterBlock")
 
 sh = Shooter(screen, 50, WIDTH, HEIGHT)
 
+enemies = []
+enemyCount = 5
+starterY = -100
+enemyW = 40
+enemyH = 40
+
+for i in range(enemyCount):
+    enemyColor = (random.randint(0, 255), 255, 0)
+    enemySpeed = random.randint(1, 3) / 5
+    enemies.append(Enemy(screen, starterY, enemyW, enemyH, enemyColor, enemySpeed, WIDTH, HEIGHT))
+
 # Main game loop
 running = True
 clock = pygame.time.Clock()
@@ -35,6 +49,8 @@ while running:
     # Fill the screen with a color
     screen.fill(background)
     sh.draw()
+    for en in enemies:
+        en.update()
     # Update the display
     pygame.display.flip()
 
