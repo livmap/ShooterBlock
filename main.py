@@ -9,8 +9,11 @@ WIDTH = 800
 HEIGHT = 600
 
 # Create the window
+
+background = (30, 30, 40)
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Pygame Window")
+pygame.display.set_caption("ShooterBlock")
 
 # Main game loop
 running = True
@@ -26,8 +29,7 @@ while running:
                 running = False
 
     # Fill the screen with a color
-    screen.fill((30, 30, 40))  # Dark blue-gray
-
+    screen.fill(background)
     # Update the display
     pygame.display.flip()
 
